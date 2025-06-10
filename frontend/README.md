@@ -78,7 +78,6 @@ jointrix/
 │   ├── types/         # TypeScript types
 │   ├── utils/         # Utility functions
 │   └── App.tsx        # Root component
-├── server/            # Backend server
 └── public/           # Public assets
 ```
 
