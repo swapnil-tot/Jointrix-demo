@@ -1,0 +1,15 @@
+# Frontend
+
+/frontend/package-lock.json
+/frontend/node_modules
+/frontend/.vscode
+
+
+
+/backend/package-lock.json
+/backend/node_modules
+/backend/.vscode
+
+
+frontend.zip
+backend.zip
