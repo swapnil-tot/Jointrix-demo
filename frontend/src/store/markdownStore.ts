@@ -111,7 +111,7 @@ export const markdownStore = create<markdownStoreType>((set, get) => ({
         let activeSlide = activeSlideId
         // On first mount, if no active slide, set the first one
         if (!activeSlideId && slides.length > 0) {
-            activeSlide = slides[0].id
+            activeSlide = slides[0]?.id || ''
         }
         return slides.find((slide: { id: any; }) => slide.id === activeSlide)
     },

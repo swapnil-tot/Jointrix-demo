@@ -5,6 +5,7 @@ import SplitLayout from '../assets/icons/SplitLayout';
 import DefaultLayout from '../assets/icons/DefaultLayout';
 import CenteredLayout from '../assets/icons/CenteredLayout';
 import TwoColumnLayout from '../assets/icons/TwoColumnLayout';
+import { Button } from './Button';
 
 const layouts = [
     {
@@ -61,27 +62,27 @@ const LayoutSelector = () => {
     }, []);
 
     return (
-        <div className="layout-selector">
-            <button
+        <div className="layout-selector" id="layout-selector">
+            <Button
                 className="layout-button"
                 onClick={() => setIsOpen(!isOpen)}
                 aria-label="Select layout"
             >
                 <Layout />
                 Layout
-            </button>
+            </Button>
 
             {isOpen && (
                 <div className="layout-dropdown">
                     {layouts.map((layout) => (
-                        <button
+                        <Button
                             key={layout.id}
                             className="layout-option"
                             onClick={() => handleLayoutChange(layout.id)}
                         >
                             {layout.icon}
                             <span>{layout.name}</span>
-                        </button>
+                        </Button>
                     ))}
                 </div>
             )}

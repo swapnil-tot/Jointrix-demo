@@ -1,5 +1,5 @@
 import Editor from 'react-simple-code-editor';
-import Prism from 'prismjs';
+import Prism, { type Grammar } from 'prismjs';
 import 'prismjs/components/prism-markdown';
 import { markdownStore } from '../store/markdownStore';
 import { useEffect, useRef, useState } from 'react';
@@ -7,6 +7,7 @@ import SlideRenderer from './SlideRender';
 import Eye from '../assets/eye';
 import EditPen from '../assets/EditPen';
 import LayoutSelector from './LayoutSelector';
+import { Button } from './Button.tsx';
 
 const SlideEditor = () => {
   const { slides, activeSlideId, updateSlideContent, setActiveSlide } = markdownStore();
@@ -25,7 +26,7 @@ const SlideEditor = () => {
 
   useEffect(() => {
     if (!activeSlideId && slides.length > 0) {
-      setActiveSlide(slides[0].id);
+      setActiveSlide(slides[0]?.id || '');
     }
     setTempContent('');
   }, [slides, activeSlideId, setActiveSlide, activeSlide]);
@@ -43,7 +44,7 @@ const SlideEditor = () => {
     handleDebouncedUpdate(activeSlideId, content);
   };
 
-  const highlight = (code: string) => Prism.highlight(code, Prism.languages.markdown, 'markdown');
+  const highlight = (code: string) => Prism.highlight(code, Prism.languages.markdown as Grammar, 'markdown');
 
 
   return (
@@ -51,23 +52,23 @@ const SlideEditor = () => {
       <div className="editor-header">
         <div className="editor-controls">
           {showPreview ? (
-            <button
+            <Button
               className="eye-preview"
               onClick={handleEyeClick}
               aria-label="Switch to edit mode"
             >
               <EditPen />
               Edit
-            </button>
+            </Button>
           ) : (
-            <button
+            <Button
               className="eye-preview"
               onClick={handleEyeClick}
               aria-label="Switch to preview mode"
             >
               <Eye />
               Preview
-            </button>
+            </Button>
           )}
           <LayoutSelector />
         </div>

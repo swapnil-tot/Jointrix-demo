@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { markdownStore } from '../store/markdownStore';
+import { Button } from './Button';
 
 const SlideNavigator = () => {
   const { slides, activeSlideId, addSlide, setActiveSlide } = markdownStore();
@@ -8,13 +9,19 @@ const SlideNavigator = () => {
 
   const handlePrevious = () => {
     if (activeSlideIndex > 0) {
-      setActiveSlide(slides[activeSlideIndex - 1].id);
+      const prevSlide = slides[activeSlideIndex - 1];
+      if (prevSlide) {
+        setActiveSlide(prevSlide.id);
+      }
     }
   };
 
   const handleNext = () => {
     if (activeSlideIndex < totalSlides - 1) {
-      setActiveSlide(slides[activeSlideIndex + 1].id);
+      const nextSlide = slides[activeSlideIndex + 1];
+      if (nextSlide) {
+        setActiveSlide(nextSlide.id);
+      }
     }
   };
 
@@ -30,10 +37,16 @@ const SlideNavigator = () => {
 
       if (event.key === 'ArrowLeft' && activeSlideIndex > 0) {
         event.preventDefault();
-        setActiveSlide(slides[activeSlideIndex - 1].id);
+        const prevSlide = slides[activeSlideIndex - 1];
+        if (prevSlide) {
+          setActiveSlide(prevSlide.id);
+        }
       } else if (event.key === 'ArrowRight' && activeSlideIndex < totalSlides - 1) {
         event.preventDefault();
-        setActiveSlide(slides[activeSlideIndex + 1].id);
+        const nextSlide = slides[activeSlideIndex + 1];
+        if (nextSlide) {
+          setActiveSlide(nextSlide.id);
+        }
       } else if (event.ctrlKey && event.key === 'm') {
         event.preventDefault();
         addSlide();
@@ -50,7 +63,7 @@ const SlideNavigator = () => {
     <nav className="slide-navigator">
       <div className="navigator-content">
         <div className="navigation-buttons">
-          <button
+          <Button
             onClick={handlePrevious}
             disabled={activeSlideIndex === 0}
             className="nav-button prev-button"
@@ -60,7 +73,7 @@ const SlideNavigator = () => {
               <path d="M15 18l-6-6 6-6"/>
             </svg>
             Previous
-          </button>
+          </Button>
           
           <div className="slide-counter">
             <span className="counter-text">Slide {activeSlideIndex + 1} of {totalSlides}</span>
@@ -72,7 +85,7 @@ const SlideNavigator = () => {
             </div>
           </div>
 
-          <button
+          <Button
             onClick={handleNext}
             disabled={activeSlideIndex === totalSlides - 1}
             className="nav-button next-button"
@@ -82,10 +95,10 @@ const SlideNavigator = () => {
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M9 18l6-6-6-6"/>
             </svg>
-          </button>
+          </Button>
         </div>
 
-        <button
+        <Button
           onClick={addSlide}
           className="add-slide-button"
           aria-label="Add new slide"
@@ -94,7 +107,7 @@ const SlideNavigator = () => {
             <path d="M12 5v14M5 12h14"/>
           </svg>
           Add Slide
-        </button>
+        </Button>
       </div>
     </nav>
   );

@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { markdownStore } from '../store/markdownStore';
 import parseMarkdownToAST from '../markDownParser';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-python';
 import 'prismjs/components/prism-css';
+import 'prismjs/components/prism-typescript';
+import 'prismjs/components/prism-jsx';
+import 'prismjs/components/prism-tsx';
+import 'prismjs/components/prism-json';
+import 'prismjs/themes/prism-tomorrow.css';
 import { renderTextNode } from '../utils/functions';
+import Prism from 'prismjs';
 
 
 const defMap: any = {};
@@ -112,19 +118,23 @@ export function renderNode(node: any, index: any) {
 
 
 export default function SlideRenderer() {
-
   const getActiveSlide = markdownStore((s: { getActiveSlide: any; }) => s.getActiveSlide)
   const slide = getActiveSlide()
-    // console.log(slide)
+
+  useEffect(() => {
+    // Initialize Prism.js syntax highlighting
+    Prism.highlightAll();
+  }, [slide?.content]); // Re-run when content changes
+
   if (!slide) return null
 
-    const ast = parseMarkdownToAST(slide.content)
-    getDefinitions(ast)
+  const ast = parseMarkdownToAST(slide.content)
+  getDefinitions(ast)
 
-    return (<div className="slide">
-        {ast?.children?.map((node, i) => (
-            <div key={i}>{renderNode(node, i)}</div>
-        ))}
-        {renderFootnotes()}
-    </div>)
+  return (<div className="slide">
+    {ast?.children?.map((node, i) => (
+      <div key={i}>{renderNode(node, i)}</div>
+    ))}
+    {renderFootnotes()}
+  </div>)
 }
