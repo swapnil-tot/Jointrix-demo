@@ -7,6 +7,7 @@ import SlideRenderer from './SlideRender';
 import Eye from '../assets/eye';
 import EditPen from '../assets/EditPen';
 import LayoutSelector from './LayoutSelector';
+import { Button } from './Button.tsx';
 
 const SlideEditor = () => {
   const { slides, activeSlideId, updateSlideContent, setActiveSlide } = markdownStore();
@@ -51,23 +52,23 @@ const SlideEditor = () => {
       <div className="editor-header">
         <div className="editor-controls">
           {showPreview ? (
-            <button
+            <Button
               className="eye-preview"
               onClick={handleEyeClick}
               aria-label="Switch to edit mode"
             >
               <EditPen />
               Edit
-            </button>
+            </Button>
           ) : (
-            <button
+            <Button
               className="eye-preview"
               onClick={handleEyeClick}
               aria-label="Switch to preview mode"
             >
               <Eye />
               Preview
-            </button>
+            </Button>
           )}
           <LayoutSelector />
         </div>
