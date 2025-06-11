@@ -1,5 +1,5 @@
 import Editor from 'react-simple-code-editor';
-import Prism from 'prismjs';
+import Prism, { type Grammar } from 'prismjs';
 import 'prismjs/components/prism-markdown';
 import { markdownStore } from '../store/markdownStore';
 import { useEffect, useRef, useState } from 'react';
@@ -25,7 +25,7 @@ const SlideEditor = () => {
 
   useEffect(() => {
     if (!activeSlideId && slides.length > 0) {
-      setActiveSlide(slides[0].id);
+      setActiveSlide(slides[0]?.id || '');
     }
     setTempContent('');
   }, [slides, activeSlideId, setActiveSlide, activeSlide]);
@@ -43,7 +43,7 @@ const SlideEditor = () => {
     handleDebouncedUpdate(activeSlideId, content);
   };
 
-  const highlight = (code: string) => Prism.highlight(code, Prism.languages.markdown, 'markdown');
+  const highlight = (code: string) => Prism.highlight(code, Prism.languages.markdown as Grammar, 'markdown');
 
 
   return (

@@ -61,7 +61,7 @@ const LayoutSelector = () => {
     }, []);
 
     return (
-        <div className="layout-selector">
+        <div className="layout-selector" id="layout-selector">
             <button
                 className="layout-button"
                 onClick={() => setIsOpen(!isOpen)}
